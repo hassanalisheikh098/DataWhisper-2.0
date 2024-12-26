@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataWhisper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+            display: grid;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Futuristic background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 48rem;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #7c3aed);
+        }
+
+        .chat-container {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 1rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, #8b5cf6, transparent, #7c3aed);
+            border-radius: 1rem;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .chat-display {
+            min-height: 300px;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            white-space: pre-wrap;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        .placeholder {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .error {
+            color: #fb7185;
+            background: rgba(251, 113, 133, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(251, 113, 133, 0.2);
+        }
+
+        .input-form {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 0.75rem;
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+        }
+
+        .submit-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .submit-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .thinking {
+            animation: pulse 1.5s infinite;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .chat-container {
+                padding: 1rem;
+            }
+
+            .chat-display {
+                min-height: 250px;
+                font-size: 1rem;
+            }
+
+            .submit-button {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">DataWhisper</h1>
+        
+        <div class="chat-container">
+            <div id="chatDisplay" class="chat-display">
+                <span class="placeholder">How can I assist you with your business today?</span>
+            </div>
+            
+            <form id="chatForm" class="input-form">
+                <input 
+                    type="text" 
+                    id="chatInput" 
+                    class="chat-input" 
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                >
+                <button type="submit" id="submitButton" class="submit-button">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const GEMINI_CONFIG = {
+            baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
+            model: 'gemini-1.5-flash',
+            endpoint: 'generateContent',
+            apiKey: 'AIzaSyCdUlbYHswEjUtpH9HB8_o-ebp_HhJgX9I'
+        };
+
+        // DOM Elements
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const chatDisplay = document.getElementById('chatDisplay');
+        const submitButton = document.getElementById('submitButton');
+
+        // State
+        let isLoading = false;
+
+        // Utility Functions
+        function setLoading(loading) {
+            isLoading = loading;
+            submitButton.disabled = loading;
+            chatInput.disabled = loading;
+            if (loading) {
+                chatDisplay.innerHTML = '<span class="placeholder thinking">Processing your request...</span>';
+            }
+        }
+
+        function showError(message) {
+            chatDisplay.innerHTML = `<span class="error">${message}</span>`;
+        }
+
+        function showResponse(text) {
+            chatDisplay.textContent = text;
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+        }
+
+        // API Functions
+        async function generateResponse(input) {
+            const url = `${GEMINI_CONFIG.baseUrl}/models/${GEMINI_CONFIG.model}:${GEMINI_CONFIG.endpoint}?key=${GEMINI_CONFIG.apiKey}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: input
+                        }]
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error?.message || 'Failed to generate response');
+            }
+
+            const data = await response.json();
+            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            
+            if (!text) {
+                throw new Error('No response received from API');
+            }
+
+            return text;
+        }
+
+        // Event Handlers
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const input = chatInput.value.trim();
+            if (!input || isLoading) return;
+
+            setLoading(true);
+            chatInput.value = '';
+
+            try {
+                const response = await generateResponse(input);
+                showResponse(response);
+            } catch (error) {
+                console.error('Error:', error);
+                showError(error.message || 'Something went wrong. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Focus input on load
+        chatInput.focus();
+    </script>
+</body>
+</html>

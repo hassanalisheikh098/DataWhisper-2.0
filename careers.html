@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - DataWhisper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fade in and slide up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        /* Hover animations */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(0, 224, 255, 0.1);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        "meteor-effect": "meteor 5s linear infinite",
+                        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gray-900 text-gray-100 p-4 relative overflow-hidden">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 -z-10">
+        <div class="absolute h-full w-full bg-gray-900 [background-image:linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] [background-size:100px_100px]"></div>
+    </div>
+
+    <!-- Dot Background -->
+    <div class="absolute inset-0 -z-10">
+        <div class="absolute h-full w-full bg-gray-900 opacity-50 [background-image:radial-gradient(rgba(255,255,255,.1)_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    </div>
+<br>
+    <div class="max-w-4xl mx-auto relative">
+        <header class="text-center mb-12 animate-fade-in">
+            <h1 class="text-4xl font-bold mb-4 text-cyan-400">Join DataWhisper</h1>
+            <p class="text-xl text-gray-300">Shape the future of AI conversation</p>
+        </header>
+
+        <div class="grid gap-8 md:grid-cols-2">
+            <!-- HR Manager Position -->
+            <div class="animate-fade-in delay-100 card-hover bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl p-6 relative group hover:shadow-cyan-500/20 transition-all duration-300">
+                <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h2 class="text-2xl font-bold mb-4 text-cyan-400">HR Manager</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-200">Requirements:</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>5+ years of HR management experience</li>
+                            <li>Experience in tech industry recruitment</li>
+                            <li>Strong knowledge of employment laws and regulations</li>
+                            <li>Excellent communication and interpersonal skills</li>
+                            <li>Experience with HRIS systems and HR analytics</li>
+                            <li>Bachelor's degree in HR or related field</li>
+                        </ul>
+                    </div>
+                    <button class="mt-6 px-6 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-lg transition-colors text-white font-medium group-hover:animate-pulse">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gen AI Fullstack Engineer Position -->
+            <div class="animate-fade-in delay-200 card-hover bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-xl p-6 relative group hover:shadow-cyan-500/20 transition-all duration-300">
+                <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <h2 class="text-2xl font-bold mb-4 text-cyan-400">Gen AI Fullstack Engineer</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-200">Requirements:</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>3+ years of full-stack development experience</li>
+                            <li>Strong experience with LLMs and Gen AI technologies</li>
+                            <li>Proficiency in React, Node.js, and TypeScript</li>
+                            <li>Experience with AI/ML frameworks and APIs</li>
+                            <li>Knowledge of cloud platforms (AWS/GCP)</li>
+                            <li>Understanding of AI ethics and best practices</li>
+                        </ul>
+                    </div>
+                    <button class="mt-6 px-6 py-2 bg-cyan-500 hover:bg-cyan-600 rounded-lg transition-colors text-white font-medium group-hover:animate-pulse">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Culture Section -->
+        <div class="mt-16 text-center animate-fade-in delay-300">
+            <h2 class="text-2xl font-bold mb-6 text-cyan-400">Why Join Us?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-lg p-6 card-hover">
+                    <div class="text-cyan-400 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M2 3h20"></path><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path><path d="m7 21 5-5 5 5"></path></svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">Remote First</h3>
+                    <p class="text-gray-400">Work from anywhere in the world</p>
+                </div>
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-lg p-6 card-hover">
+                    <div class="text-cyan-400 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">Flexible Hours</h3>
+                    <p class="text-gray-400">Work when you're most productive</p>
+                </div>
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-lg p-6 card-hover">
+                    <div class="text-cyan-400 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <h3 class="font-semibold mb-2">Competitive Pay</h3>
+                    <p class="text-gray-400">Above market compensation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
